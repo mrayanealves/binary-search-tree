@@ -2,7 +2,9 @@ package br.ufrn.imd.models;
 
 public class Node {
 	private Integer value;
+	// Conta a quantidade de filhos a esquerda
 	private Integer countLeftNodes;
+	// Conta a quantidade de filhos a direita
 	private Integer countRigthNodes;
 	
 	public Node(Integer value, Integer countLeftNodes, Integer coutRigthNodes) {
