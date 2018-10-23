@@ -33,7 +33,12 @@ public class Main {
 			System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
 		}
 		
-		Integer n = tree.nthElement(5);
+//		for (int i = 1; i <= 9; i++) {
+//			Integer n = tree.nthElement(i);
+//			System.out.println(i +": " +n);
+//		}
+		
+		Integer n = tree.nthElement(7);
 		System.out.println(n);
 
 //		// Execução da Ações

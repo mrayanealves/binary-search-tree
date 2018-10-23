@@ -269,41 +269,61 @@ public class Tree {
 		if ((n < 0) || (cout < n)) {
 			meet = -1;
 		}	
+		
 		cout = aux.getRoot().getCountLeftNodes();
-		
-		System.out.println("root value: " +aux.getRoot().getValue());
-		System.out.println("filho left root value: " +aux.getLeftTree().getRoot().getValue());
-		System.out.println("filho rigth root value: " +aux.getRigthTree().getRoot().getValue());
-		
-		System.out.println("filhos root left value: " +aux.getRoot().getCountLeftNodes());
-		System.out.println("filhos root rigth value: " +aux.getRoot().getCountRigthNodes());
-		
-		while (meet == 0) {
-			if (cout > 0 && cout >= n) {
-				if (aux.getLeftTree().getRoot() != null) {
-					cout = cout - aux.getRoot().getCountLeftNodes();
-					aux = aux.getLeftTree();
-					System.out.println("left value: " +aux.getRoot().getValue());
-					System.out.println("filhos left left value: " +aux.getRoot().getCountLeftNodes());
-					System.out.println("filhos left rigth value: " +aux.getRoot().getCountRigthNodes());
-				}
-			} else {
-				if (cout++ == n) {
-					System.out.println(aux.getRoot().getValue());
-					System.out.println("cout: " +cout);
-					meet = aux.getRoot().getValue();
-				} else {
-					cout += aux.getRoot().getCountRigthNodes();
-					System.out.println("cout rigth: " +cout);
-					if (aux.getRigthTree().getRoot() != null) {
-						aux = aux.getRigthTree();
-						System.out.println("rigth value: " +aux.getRoot().getValue());
-						System.out.println("filhos rigth left value: " +aux.getRoot().getCountLeftNodes());
-						System.out.println("filhos rigth rigth value: " +aux.getRoot().getCountRigthNodes());
+		if (cout > 0 && cout >= n) {
+			while (meet == 0) {
+				cout = aux.getRoot().getCountLeftNodes();
+				if (cout > 0 && cout >= n) {
+					if (aux.getLeftTree().getRoot() != null) {
+						cout = cout - aux.getRoot().getCountLeftNodes();
+						aux = aux.getLeftTree();
 					}
-				}
+				} else {
+					cout++;
+					if (cout == n) {
+						meet = aux.getRoot().getValue();
+					} else {
+						cout += aux.getRoot().getCountRigthNodes();
+						if (aux.getRigthTree().getRoot() != null) {
+							aux = aux.getRigthTree();
+							if (cout == n) {
+								meet = aux.getRoot().getValue();
+							}
+						}
+					}
+				} 
 			}
-		}
+		}		
+//		cout = aux.getRoot().getCountLeftNodes() + 1;
+//		aux = aux.getRigthTree();
+//		if (cout >= 1 && cout <= n) {
+//			while (meet != 0) {                              
+//				cout += aux.getRoot().getCountLeftNodes();
+//				if (cout > 0 && cout >= n) {
+//					if (aux.getLeftTree().getRoot() != null) {
+//						cout = cout - aux.getRoot().getCountLeftNodes();
+//						aux = aux.getLeftTree();
+//						if (cout == n) {
+//							meet = aux.getRoot().getValue();
+//						}
+//					}
+//				} else {
+//					cout++;
+//					if (cout == n) {
+//						meet = aux.getRoot().getValue();
+//					} else {
+//						cout += aux.getRoot().getCountRigthNodes();
+//						if (aux.getRigthTree().getRoot() != null) {
+//							aux = aux.getRigthTree();
+//							if (cout == n) {
+//								meet = aux.getRoot().getValue();
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
 		return meet;
 	}
 }
