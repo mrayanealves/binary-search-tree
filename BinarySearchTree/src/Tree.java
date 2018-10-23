@@ -268,8 +268,8 @@ public class Tree {
 
 		if ((n < 0) || (cout < n)) {
 			meet = -1;
-		}	
-		
+		}
+
 		cout = aux.getRoot().getCountLeftNodes();
 		if (cout > 0 && cout >= n) {
 			while (meet == 0) {
@@ -292,38 +292,43 @@ public class Tree {
 							}
 						}
 					}
-				} 
+				}
 			}
-		}		
-//		cout = aux.getRoot().getCountLeftNodes() + 1;
-//		aux = aux.getRigthTree();
-//		if (cout >= 1 && cout <= n) {
-//			while (meet != 0) {                              
-//				cout += aux.getRoot().getCountLeftNodes();
-//				if (cout > 0 && cout >= n) {
-//					if (aux.getLeftTree().getRoot() != null) {
-//						cout = cout - aux.getRoot().getCountLeftNodes();
-//						aux = aux.getLeftTree();
-//						if (cout == n) {
-//							meet = aux.getRoot().getValue();
-//						}
-//					}
-//				} else {
-//					cout++;
-//					if (cout == n) {
-//						meet = aux.getRoot().getValue();
-//					} else {
-//						cout += aux.getRoot().getCountRigthNodes();
-//						if (aux.getRigthTree().getRoot() != null) {
-//							aux = aux.getRigthTree();
-//							if (cout == n) {
-//								meet = aux.getRoot().getValue();
-//							}
-//						}
-//					}
-//				}
-//			}
-//		}
+		}
+
+		cout = aux.getRoot().getCountLeftNodes() + 1;
+		if (cout == n) {
+			meet = aux.getRoot().getValue();
+		}
+
+		Integer coutLeftRoot = cout;
+		aux = aux.getRigthTree();
+
+		if (cout > 1 && cout <= n) {
+			while (meet == 0) {
+				cout = coutLeftRoot + aux.getRoot().getCountLeftNodes();
+				if (cout > coutLeftRoot && cout >= n) {
+					if (aux.getLeftTree().getRoot() != null) {
+						cout = cout - aux.getRoot().getCountLeftNodes();
+						aux = aux.getLeftTree();
+					}
+				} else {
+					cout++;
+					if (cout == n) {
+						meet = aux.getRoot().getValue();
+					} else {
+						cout += aux.getRoot().getCountRigthNodes();
+						if (aux.getRigthTree().getRoot() != null) {
+							aux = aux.getRigthTree();
+							if (cout == n) {
+								meet = aux.getRoot().getValue();
+							}
+						}
+					}
+				}
+
+			}
+		}
 		return meet;
 	}
 }
