@@ -1,4 +1,3 @@
-package br.ufrn.imd.models;
 
 public class Node {
 	private Integer value;
