@@ -34,219 +34,214 @@ public class Tree {
 		this.rigthTree = rigthTree;
 	}
 
-    //Inserir Elemento
+	// Inserir Elemento
 	public void insert(Integer value) {
-		if(root !=null) {
-			//Se for menor
+		if (root != null) {
+			// Se for menor
 			if (value < root.getValue()) {
-			
-		        //Se tiver sub-arvore a esquerda
-                 if (leftTree.getRoot() != null) {
-		        	
-		        	//Atualizar contagem de filhos  	
-		        	root.setCountLeftNodes(root.getCountLeftNodes()+1);
-		        	
-		            leftTree.insert(value);
 
-		      
-		        } else  {//Se sub-arvore a esquerda é vazia
-		        	
-		        	Node node = new Node(value, 0, 0);
-		        	Tree leftTree = new Tree(null,null,null);
+				// Se tiver sub-arvore a esquerda
+				if (leftTree.getRoot() != null) {
+
+					// Atualizar contagem de filhos
+					root.setCountLeftNodes(root.getCountLeftNodes() + 1);
+
+					leftTree.insert(value);
+
+				} else {// Se sub-arvore a esquerda é vazia
+
+					Node node = new Node(value, 0, 0);
+					Tree leftTree = new Tree(null, null, null);
 					Tree rigthTree = new Tree(null, null, null);
-		        	
-		        	this.leftTree = new Tree(node,leftTree,rigthTree);
 
-                    //Atualizar contagem de filhos
-		        	root.setCountLeftNodes(root.getCountLeftNodes()+1);
+					this.leftTree = new Tree(node, leftTree, rigthTree);
 
-                    System.out.println("O valor " + value + " foi inserido com sucesso!");
+					// Atualizar contagem de filhos
+					root.setCountLeftNodes(root.getCountLeftNodes() + 1);
 
-		        }
-		        
-		    //Se for maior
-		    } else if (value > root.getValue()) {
-		   
-		        //Se tiver sub-árvore não vazia a direita
-		        if (rigthTree.getRoot() != null) {
-		        	
-		        	//Atualizar contagem de filhos		        		        	
-		        	root.setCountRigthNodes(root.getCountRigthNodes()+1);
-		        
-		            rigthTree.insert(value);
+					System.out.println("O valor " + value + " foi inserido com sucesso!");
 
-		        } else {
-		        	
-                    
-		            //Se a sub-árvore a direita é vazia
-		        	Node node = new Node(value, 0, 0);
-		        	
-		        	Tree leftTree = new Tree(null,null,null);
+				}
+
+				// Se for maior
+			} else if (value > root.getValue()) {
+
+				// Se tiver sub-árvore não vazia a direita
+				if (rigthTree.getRoot() != null) {
+
+					// Atualizar contagem de filhos
+					root.setCountRigthNodes(root.getCountRigthNodes() + 1);
+
+					rigthTree.insert(value);
+
+				} else {
+
+					// Se a sub-árvore a direita é vazia
+					Node node = new Node(value, 0, 0);
+
+					Tree leftTree = new Tree(null, null, null);
 					Tree rigthTree = new Tree(null, null, null);
-		        	
-		        	this.rigthTree = new Tree(node,leftTree,rigthTree);
 
-                    //Atualizar contagem de filhos
-		        	root.setCountRigthNodes(root.getCountRigthNodes()+1);
+					this.rigthTree = new Tree(node, leftTree, rigthTree);
 
-		        	System.out.println("O valor " + value + " foi inserido com sucesso!");
-		            
-		        }
-		    } 
-			//Impedir inserção de valores duplicados
-		    else if(value == root.getValue()) {
-		    	System.out.println("O valor " + value + " já existe na árvore e não pode ser inserido novamente!");
-		    }
+					// Atualizar contagem de filhos
+					root.setCountRigthNodes(root.getCountRigthNodes() + 1);
+
+					System.out.println("O valor " + value + " foi inserido com sucesso!");
+
+				}
+			}
+			// Impedir inserção de valores duplicados
+			else if (value == root.getValue()) {
+				System.out.println("O valor " + value + " já existe na árvore e não pode ser inserido novamente!");
+			}
 
 		}
-		
-		else { //Caso a árvore seja vazia
+
+		else { // Caso a árvore seja vazia
 			this.root = new Node(value, 0, 0);
-			this.leftTree = new Tree(null,null,null);
+			this.leftTree = new Tree(null, null, null);
 			this.rigthTree = new Tree(null, null, null);
 
+			System.out.println("O valor " + value + " foi inserido com sucesso e é a raiz!");
 
-            System.out.println("O valor " + value + " foi inserido com sucesso e é a raiz!");
-		            
-			
 		}
 	}
 
-    //Remover Elemento
+	// Remover Elemento
 	public boolean remove(Integer value) {
-		
-		if(root != null) {
 
-           if(leftTree !=null && rigthTree!=null){
-			
-                //Se for menor
-                if(value < root.getValue()) {
-				    
-				    if(leftTree.getRoot()!=null) {
+		if (root != null) {
 
-                        if( leftTree.getRoot().getValue() == value) {
-					    
-                            boolean remove = leftTree.remove(value);
+			if (leftTree != null && rigthTree != null) {
 
-                            return remove;
-						}				    
-				    
+				// Se for menor
+				if (value < root.getValue()) {
 
-				        else {
-					        
-					        boolean remove = leftTree.remove(value);
-					        
-					        if(remove) {
-						        
-						        Integer new_count = root.getCountLeftNodes() - 1;
-			                	
-			                	root.setCountLeftNodes(new_count);
-			                	
-					        }
-					        
-					        return remove;
-				        
-				        }
-                    }
+					if (leftTree.getRoot() != null) {
 
-                    else{
+						if (leftTree.getRoot().getValue() == value) {
 
-                        return false;
-                        }
-			}
-			
-            //Se for Maior
-			else if(value > root.getValue()) {
-				
-				
-				if(rigthTree.getRoot()!= null){
-                        
-                   //Vejamos se o filho é o valor
-				   if(rigthTree.getRoot().getValue() == value) {
-                            
-                            boolean remove = rigthTree.remove(value);  
+							boolean remove = leftTree.remove(value);
 
-                            return remove;       
-                            
-				         }
+							return remove;
+						}
 
-				    else {
-					    
-				    boolean remove = rigthTree.remove(value);
-				    
-					    if(remove) {
-						    
-			            	Integer new_count = root.getCountRigthNodes() - 1;
-			            	
-			            	root.setCountRigthNodes(new_count);
-			            	
-					    }
-					    
-				    return remove;	
-				    }
-			    }
+						else {
 
-                else{return false;}
-			}
-			
-			else if(value == root.getValue()){
-				
-				//Se nao tem filhos
-				if(rigthTree.getRoot() == null && leftTree.getRoot() == null) {
-					root = null ;
-					rigthTree = null;
-					leftTree = null;
-					
-					return true;
-					
-				}
-				
-				//Se tem um filho e é o da direita
-				else if(leftTree.getRoot() == null) {
-					root = rigthTree.getRoot();
-					rigthTree = rigthTree.getRigthTree();
-					leftTree = rigthTree.getLeftTree();
-					
-					return true;
-				}
-				
-				//Se tem um filho e é o da esquerda
-				else if(rigthTree.getRoot() == null) {
-					root = leftTree.getRoot();
-					rigthTree= leftTree.getRigthTree();
-					leftTree = leftTree.getLeftTree();
-					
-					return true;
-				}
-				
-				//Se tem dois filhos
-				else{
-					
-					//Vai para a direita
-					//Pega o mais a esquerda
-					
-					Tree auxiliar = rigthTree;
-					
-					while(auxiliar.getLeftTree() != null && auxiliar.getLeftTree().getRoot() !=null) {
-						auxiliar = auxiliar.getLeftTree();
+							boolean remove = leftTree.remove(value);
+
+							if (remove) {
+
+								Integer new_count = root.getCountLeftNodes() - 1;
+
+								root.setCountLeftNodes(new_count);
+
+							}
+
+							return remove;
+
+						}
 					}
-					
-					Integer new_value = auxiliar.getRoot().getValue(); 
-									
-					root.setValue(new_value);
-					
-					boolean remove = rigthTree.remove(new_value);
 
-					return remove;
+					else {
+
+						return false;
+					}
 				}
-			}				
-			
+
+				// Se for Maior
+				else if (value > root.getValue()) {
+
+					if (rigthTree.getRoot() != null) {
+
+						// Vejamos se o filho é o valor
+						if (rigthTree.getRoot().getValue() == value) {
+
+							boolean remove = rigthTree.remove(value);
+
+							return remove;
+
+						}
+
+						else {
+
+							boolean remove = rigthTree.remove(value);
+
+							if (remove) {
+
+								Integer new_count = root.getCountRigthNodes() - 1;
+
+								root.setCountRigthNodes(new_count);
+
+							}
+
+							return remove;
+						}
+					}
+
+					else {
+						return false;
+					}
+				}
+
+				else if (value == root.getValue()) {
+
+					// Se nao tem filhos
+					if (rigthTree.getRoot() == null && leftTree.getRoot() == null) {
+						root = null;
+						rigthTree = null;
+						leftTree = null;
+
+						return true;
+
+					}
+
+					// Se tem um filho e é o da direita
+					else if (leftTree.getRoot() == null) {
+						root = rigthTree.getRoot();
+						rigthTree = rigthTree.getRigthTree();
+						leftTree = rigthTree.getLeftTree();
+
+						return true;
+					}
+
+					// Se tem um filho e é o da esquerda
+					else if (rigthTree.getRoot() == null) {
+						root = leftTree.getRoot();
+						rigthTree = leftTree.getRigthTree();
+						leftTree = leftTree.getLeftTree();
+
+						return true;
+					}
+
+					// Se tem dois filhos
+					else {
+
+						// Vai para a direita
+						// Pega o mais a esquerda
+
+						Tree auxiliar = rigthTree;
+
+						while (auxiliar.getLeftTree() != null && auxiliar.getLeftTree().getRoot() != null) {
+							auxiliar = auxiliar.getLeftTree();
+						}
+
+						Integer new_value = auxiliar.getRoot().getValue();
+
+						root.setValue(new_value);
+
+						boolean remove = rigthTree.remove(new_value);
+
+						return remove;
+					}
+				}
+
+			}
 		}
-    }
-		
+
 		return false;
 	}
-	
 
 	// Buscar Elemento
 	public boolean search(Integer value) {
@@ -264,32 +259,47 @@ public class Tree {
 		}
 		return found;
 	}
-	
+
 	// Retorna o n-ésimo elemento em ordem simétrica
 	Integer nthElement(Integer n) {
 		Integer meet = 0;
 		Tree aux = this;
 		int cout = 1 + aux.getRoot().getCountLeftNodes() + aux.getRoot().getCountRigthNodes();
-		
-		if ((n < 1) || (cout < n)) {
+
+		if ((n < 0) || (cout < n)) {
 			meet = -1;
-		} else {
-			cout = 0;
-		}
+		}	
+		cout = aux.getRoot().getCountLeftNodes();
 		
-		while(meet == 0) {
-			cout = aux.getRoot().getCountLeftNodes();
-			if (aux.getLeftTree() != null && cout >= n) {
-				cout = cout - aux.getRoot().getCountLeftNodes();
-				aux = aux.getLeftTree();
+		System.out.println("root value: " +aux.getRoot().getValue());
+		System.out.println("filho left root value: " +aux.getLeftTree().getRoot().getValue());
+		System.out.println("filho rigth root value: " +aux.getRigthTree().getRoot().getValue());
+		
+		System.out.println("filhos root left value: " +aux.getRoot().getCountLeftNodes());
+		System.out.println("filhos root rigth value: " +aux.getRoot().getCountRigthNodes());
+		
+		while (meet == 0) {
+			if (cout > 0 && cout >= n) {
+				if (aux.getLeftTree().getRoot() != null) {
+					cout = cout - aux.getRoot().getCountLeftNodes();
+					aux = aux.getLeftTree();
+					System.out.println("left value: " +aux.getRoot().getValue());
+					System.out.println("filhos left left value: " +aux.getRoot().getCountLeftNodes());
+					System.out.println("filhos left rigth value: " +aux.getRoot().getCountRigthNodes());
+				}
 			} else {
-				cout++;
-				if (cout == n) {
+				if (cout++ == n) {
+					System.out.println(aux.getRoot().getValue());
+					System.out.println("cout: " +cout);
 					meet = aux.getRoot().getValue();
 				} else {
 					cout += aux.getRoot().getCountRigthNodes();
-					if (aux.getRigthTree() != null && cout <= n) {
-						aux = aux.rigthTree;
+					System.out.println("cout rigth: " +cout);
+					if (aux.getRigthTree().getRoot() != null) {
+						aux = aux.getRigthTree();
+						System.out.println("rigth value: " +aux.getRoot().getValue());
+						System.out.println("filhos rigth left value: " +aux.getRoot().getCountLeftNodes());
+						System.out.println("filhos rigth rigth value: " +aux.getRoot().getCountRigthNodes());
 					}
 				}
 			}
