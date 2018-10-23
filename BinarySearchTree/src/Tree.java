@@ -334,4 +334,9 @@ public class Tree {
 		}
 		return found;
 	}
+	
+	// Retorna o n-ésimo elemento em ordem simétrica
+	Integer nthElement(Integer n) {
+		return 0;
+	}
 }
