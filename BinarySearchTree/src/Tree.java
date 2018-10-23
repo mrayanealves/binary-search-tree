@@ -271,16 +271,16 @@ public class Tree {
 		Tree aux = this;
 		int cout = 1 + aux.getRoot().getCountLeftNodes() + aux.getRoot().getCountRigthNodes();
 		
-		if (cout < n) {
+		if ((n < 1) || (cout < n)) {
 			meet = -1;
 		} else {
-			cout = aux.getRoot().getCountLeftNodes();
+			cout = 0;
 		}
 		
 		while(meet == 0) {
-			if (cout > 0 && cout >= n) {
+			cout = aux.getRoot().getCountLeftNodes();
+			if (aux.getLeftTree() != null && cout >= n) {
 				cout = cout - aux.getRoot().getCountLeftNodes();
-//				System.out.println(aux.getLeftTree().getRoot().getValue());
 				aux = aux.getLeftTree();
 			} else {
 				cout++;
@@ -288,7 +288,7 @@ public class Tree {
 					meet = aux.getRoot().getValue();
 				} else {
 					cout += aux.getRoot().getCountRigthNodes();
-					if (cout > 1 && cout <= n) {
+					if (aux.getRigthTree() != null && cout <= n) {
 						aux = aux.rigthTree;
 					}
 				}
