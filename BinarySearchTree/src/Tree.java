@@ -267,6 +267,33 @@ public class Tree {
 	
 	// Retorna o n-ésimo elemento em ordem simétrica
 	Integer nthElement(Integer n) {
-		return 0;
+		Integer meet = 0;
+		Tree aux = this;
+		int cout = 1 + aux.getRoot().getCountLeftNodes() + aux.getRoot().getCountRigthNodes();
+		
+		if (cout < n) {
+			meet = -1;
+		} else {
+			cout = aux.getRoot().getCountLeftNodes();
+		}
+		
+		while(meet == 0) {
+			if (cout > 0 && cout >= n) {
+				cout = cout - aux.getRoot().getCountLeftNodes();
+//				System.out.println(aux.getLeftTree().getRoot().getValue());
+				aux = aux.getLeftTree();
+			} else {
+				cout++;
+				if (cout == n) {
+					meet = aux.getRoot().getValue();
+				} else {
+					cout += aux.getRoot().getCountRigthNodes();
+					if (cout > 1 && cout <= n) {
+						aux = aux.rigthTree;
+					}
+				}
+			}
+		}
+		return meet;
 	}
 }
