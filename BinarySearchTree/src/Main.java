@@ -34,7 +34,7 @@ public class Main {
 		}
 		
 		for (int i = 1; i <= 15; i++) {
-			Integer n = tree.nthElement(i, tree);
+			Integer n = tree.nthElement(i);
 			System.out.println(i +": " +n);
 		}
 

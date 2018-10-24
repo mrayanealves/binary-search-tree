@@ -193,16 +193,17 @@ public class Tree {
 	 * @return meet Integer que representa o número encontado na posição n
 	 * @author Maria Rayane Alves
 	 */
-	Integer nthElement(Integer n, Tree tree) {
+	Integer nthElement(Integer n) {
+		boolean isMeet = false;
 		Integer meet = 0;
-		Tree aux = tree;
+		Tree aux = this;
 		// O contador inicialmente é igual a soma dos filhos à esquerda com os filhos à direita mais 1 da raiz
 		int cout = 1 + aux.getRoot().getCountLeftNodes() + aux.getRoot().getCountRigthNodes();
 		
 		// Se o n for menor que 1 ou o n for maior que o contador inicial 
 		// (ou seja, maior que a quantidade de elementos no total)
 		if ((n < 1) || (cout < n)) {
-			meet = -2;
+			meet = -1;
 			return meet;
 		}
 		
@@ -211,7 +212,7 @@ public class Tree {
 		// Se o contador for maior que 0 e maior ou igual a n, então o n está entre os filhos à esquerda do nó raiz
 		if (cout > 0 && cout >= n) {
 			// Enquanto o valor não for encontrado
-			while (meet == 0) {
+			while (!isMeet) {
 				// O contador é igual ao número de filhos à esquerda do nó
 				cout = aux.getRoot().getCountLeftNodes();
 				// Se esse número for maior que 0 e maior que n, então ele está entre os filhos à esquerda do nó
@@ -232,7 +233,7 @@ public class Tree {
 					if (cout == n) {
 						// O número encontrado será o valor que está no nó raiz da árvore
 						meet = aux.getRoot().getValue();
-						return meet;
+						isMeet = true;
 					}
 					// Se o número não for igual ao n
 					else {
@@ -246,7 +247,7 @@ public class Tree {
 							if (cout == n) {
 								// O número encontrado será o valor que está no nó raiz da árvore
 								meet = aux.getRoot().getValue();
-								return meet;
+								isMeet = true;
 							}
 						}
 					}
@@ -260,7 +261,7 @@ public class Tree {
 		if (cout == n) {
 			// O número encontrado será o valor que está no nó raiz da árvore
 			meet = aux.getRoot().getValue();
-			return meet;
+			isMeet = true;
 		}
 		
 		// Se o cout anterior, porém, não entrar no if, criamos uma variavel auxiliar para somar o valor dos filhos à esquerda
@@ -269,7 +270,7 @@ public class Tree {
 		// A nova raíz, agora, será o filho à direita da raíz atual
 		aux = aux.getRigthTree();
 		// Enquanto o número não for encontrado
-		while (meet == 0) {
+		while (!isMeet) {
 			// O contador será o que foi guardado na coutLeftRoot mais os filhos à esquerda do nó
 			cout = coutLeftRoot + aux.getRoot().getCountLeftNodes();
 			// Se o valor do contador for maior que o contador até a raíz e maior que o n, então o n estará entre os filhos 
@@ -291,6 +292,7 @@ public class Tree {
 				if (cout == n) {
 					// O número encontrado será o valor que está no nó raiz da árvore
 					meet = aux.getRoot().getValue();
+					isMeet = true;
 				} 
 				// Se não for
 				else {
@@ -304,9 +306,8 @@ public class Tree {
 						aux = aux.getRigthTree();
 						// Cria-se um novo valor para n que será o antigo n menos a quantidade de filhos à esquerda do nó raíz
 						// anterior menos 1 da raíz atual
-						Integer newN = n - coutLeftRoot - x - 1;
-						// Chama recursivamente esse método com o novo valor para n e a nova raíz
-						return nthElement(newN, aux);
+						n = n - coutLeftRoot - x - 1;
+						coutLeftRoot = 0;
 					}
 				}
 			}
