@@ -189,7 +189,6 @@ public class Tree {
 	/**
 	 * Busca o n-ésimo termo na árvore em ordem simétrica
 	 * @param n Integer que representa a posição que se deseja buscar
-	 * @param tree Tree que representa a árvore que possuirá a raíz inicial
 	 * @return meet Integer que representa o número encontado na posição n
 	 * @author Maria Rayane Alves
 	 */
@@ -314,5 +313,16 @@ public class Tree {
 		}
 		// Retorne o valor encontrado
 		return meet;
+	}
+	
+	/**
+	 * Busca a posiçao do elemento na árvore em ordem simétrica
+	 * @param element Integer que representa o elemento do qual se deseja a posição
+	 * @return position Integer que representa a posição encontado do elemento
+	 * @author Maria Rayane Alves
+	 */
+	public Integer position (Integer element) {
+		Integer position = -1;
+		return position;
 	}
 }
