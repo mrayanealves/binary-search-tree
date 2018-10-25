@@ -33,11 +33,6 @@ public class Main {
 			System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
 		}
 		
-		for (int i = 1; i <= 15; i++) {
-			Integer n = tree.nthElement(i);
-			System.out.println(i +": " +n);
-		}
-
 		// Execução da Ações
 		try {
 			FileReader file = new FileReader(file_commands);
