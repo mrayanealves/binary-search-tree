@@ -180,7 +180,7 @@ public class Tree {
 			else if (value < root.getValue()) {
 				found = leftTree.search(value);
 			} else {
-				found = leftTree.search(value);
+				found = rigthTree.search(value);
 			}
 		}
 		return found;
@@ -322,7 +322,129 @@ public class Tree {
 	 * @author Maria Rayane Alves
 	 */
 	public Integer position (Integer element) {
-		Integer position = -1;
+		boolean meetPosition = false;
+		Integer position = -1;	
+		Integer cout = 0;
+		Integer leftRigthPosition = 0;
+		Tree aux = this;
+		Integer root = aux.getRoot().getCountLeftNodes() + 1;
+			
+		if (search(element)) {
+			if (aux.getRoot().getValue() > element) {
+				while (!meetPosition) {
+					if (aux.getRoot().getValue() > element) {
+						if (aux.getLeftTree().getRoot() != null) {
+							aux = aux.getLeftTree();
+						} 
+					}
+					else if (aux.getRoot().getValue() == element) {
+						cout = aux.getRoot().getCountLeftNodes() + 1;
+						position = cout;
+						meetPosition = true;
+					}
+					else if (aux.getRoot().getValue() < element) {
+						cout = aux.getRoot().getCountLeftNodes() + 1;
+						if (aux.getRigthTree().getRoot() != null) {
+							aux = aux.getRigthTree();
+							cout += leftRigthPosition;
+							leftRigthPosition = cout++;
+							if (aux.getRoot().getValue() == element) {	
+								position = cout;
+								meetPosition = true;
+							}
+						}
+					}
+				}
+			} 
+			else if (aux.getRoot().getValue() == element) {
+				cout = aux.getRoot().getCountLeftNodes() + 1;
+				position = cout;
+			}
+			
+			else if (aux.getRoot().getValue() < element) {
+				aux = aux.getRigthTree();
+				while (!meetPosition) {
+					if (aux.getRoot().getValue() > element) {
+						if (aux.getLeftTree().getRoot() != null) {
+							aux = aux.getLeftTree();
+						} 
+					}
+					else if (aux.getRoot().getValue() == element) {
+						cout += aux.getRoot().getCountLeftNodes() + 1;
+						position = cout+root;
+						meetPosition = true;
+					}
+					else if (aux.getRoot().getValue() < element) {
+						// System.out.println("cout: " +cout);
+						// System.out.println("aux: " +aux.getRoot().getValue());
+						cout += aux.getRoot().getCountLeftNodes() + 1;
+						// System.out.println("cout:: " +cout);
+						
+						if (aux.getRigthTree().getRoot() != null) {
+							aux = aux.getRigthTree();
+							// System.out.println("aux:: " +aux.getRoot().getValue());
+							
+//							cout += leftRigthPosition;
+//							System.out.println("cout::: " +cout);
+//							leftRigthPosition = cout++;
+//							System.out.println("leftRigthPosition: " +leftRigthPosition);
+//							if (aux.getRoot().getValue() == element) {
+//								System.out.println("cout:::: " +cout);
+//								position = cout;
+//								meetPosition = true;
+//							}
+						}
+					}
+				}
+			}
+		}
 		return position;
 	}
 }
+
+
+//while (!meetPosition) {
+//	if (aux.getLeftTree().getRoot() != null) {
+//		cout = aux.getRoot().getCountLeftNodes();
+//		System.out.println("cout: " +cout);
+//		aux = aux.getLeftTree();
+//	} 
+//	else if (aux.getRoot().getValue() == element) {
+//		cout = aux.getRoot().getCountLeftNodes() + 1;
+//		System.out.println("cout:: " +cout);
+//		position = cout;
+//		meetPosition = true;
+//	}
+//	else if (aux.getRoot().getValue() < element) {
+//		if (aux.getRigthTree().getRoot() != null) {
+//			cout = aux.getRoot().getCountLeftNodes() + 2;
+//			System.out.println("cout::: " +cout);
+//			aux = aux.getRigthTree();
+//		}
+//	}
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
