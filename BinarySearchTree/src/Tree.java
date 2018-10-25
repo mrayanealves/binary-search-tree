@@ -328,27 +328,47 @@ public class Tree {
 		Integer leftRigthPosition = 0;
 		Tree aux = this;
 		Integer root = aux.getRoot().getCountLeftNodes() + 1;
-			
+		
+		// Se o elemento estiver na árvore
 		if (search(element)) {
+			// Se o valor na raiz for maior que o elemento, então o elemento estará na árvore à esquerda da raíz
 			if (aux.getRoot().getValue() > element) {
+				// Enquanto a posição não for encontrada
 				while (!meetPosition) {
+					// Se o valor da raíz for maior que o elemento
 					if (aux.getRoot().getValue() > element) {
+						// Se existir uma árvore à esquerda
 						if (aux.getLeftTree().getRoot() != null) {
+							// Acesse a árvore a esquerda
 							aux = aux.getLeftTree();
 						} 
 					}
+					// Se o valor da raíz for igual ao elemento
 					else if (aux.getRoot().getValue() == element) {
+						// O contador será o valor dos filhos à esquerda do nó somado com 1 dele mesmo 
 						cout = aux.getRoot().getCountLeftNodes() + 1;
+						// Posição será esse contador
 						position = cout;
+						// Encontrou a posição
 						meetPosition = true;
 					}
+					// Se o valor da raíz for menor que o elemento
 					else if (aux.getRoot().getValue() < element) {
+						// O contador será o valor dos filhos à esquerda do nó raíz somado com 1 dele mesmo 
 						cout = aux.getRoot().getCountLeftNodes() + 1;
+						// Se existir uma árvore à direita
 						if (aux.getRigthTree().getRoot() != null) {
+							// A nova árvore raíz será a árvore à direita da antiga
 							aux = aux.getRigthTree();
+							// o contador será o valor dele somado com o valor da posição calculada da raíz direita anterior 
+							// a essa
 							cout += leftRigthPosition;
+							// Atualizando o valor da posição calculada da anterior com a soma do contador mais 1 da atual 
+							// árvore (que é uma árvore direita)
 							leftRigthPosition = cout++;
+							// Se o valor da raiz dessa árvore atual for igual ao elemento
 							if (aux.getRoot().getValue() == element) {	
+								// A posição é o contador e atualiza o valor da avariavel para dizer que encontrou
 								position = cout;
 								meetPosition = true;
 							}
@@ -356,73 +376,52 @@ public class Tree {
 					}
 				}
 			} 
+			// Se o valor da raíz for igual ao elemento, a posição será a quatidade de filhos à esquerda mais 1 dela mesma
 			else if (aux.getRoot().getValue() == element) {
 				cout = aux.getRoot().getCountLeftNodes() + 1;
 				position = cout;
 			}
 			
+			// Se o valor da raíz for menor que o elemento, então o elemento está à direita da raíz
 			else if (aux.getRoot().getValue() < element) {
+				// A nova raíz será a subárvore à direita
 				aux = aux.getRigthTree();
+				// Enquanto não encontrar a posiçãp
 				while (!meetPosition) {
+					// Se o valor na raíz for maior que o elemento, esse valor estará à esquerda da raíz
 					if (aux.getRoot().getValue() > element) {
+						// Se houver subárvore à esquerda
 						if (aux.getLeftTree().getRoot() != null) {
+							// A nova árvore raíz será a da esquerda da raiz
 							aux = aux.getLeftTree();
 						} 
 					}
+					// Se o valor na raíz for o elemento
 					else if (aux.getRoot().getValue() == element) {
+						// O contador será ele somado com os filhos à esquerda mais 1 da raiz atual
 						cout += aux.getRoot().getCountLeftNodes() + 1;
+						// A posição será o valor do contador mais o valor dos nós até a raíz da árvore original
 						position = cout+root;
+						// Atualiza que achou a posição
 						meetPosition = true;
 					}
+					// Se o valor na raíz for menor que o elemento, então o valor estará à direita da raíz
 					else if (aux.getRoot().getValue() < element) {
-						// System.out.println("cout: " +cout);
-						// System.out.println("aux: " +aux.getRoot().getValue());
+						// O contador será os filhos à esquerda desse nó raiz mais 1 dele mesmo
 						cout += aux.getRoot().getCountLeftNodes() + 1;
-						// System.out.println("cout:: " +cout);
-						
+						// Se houver árvore à direita
 						if (aux.getRigthTree().getRoot() != null) {
+							// A nova raíz será a árvore à direita da atual
 							aux = aux.getRigthTree();
-							// System.out.println("aux:: " +aux.getRoot().getValue());
-							
-//							cout += leftRigthPosition;
-//							System.out.println("cout::: " +cout);
-//							leftRigthPosition = cout++;
-//							System.out.println("leftRigthPosition: " +leftRigthPosition);
-//							if (aux.getRoot().getValue() == element) {
-//								System.out.println("cout:::: " +cout);
-//								position = cout;
-//								meetPosition = true;
-//							}
 						}
 					}
 				}
 			}
 		}
+		// Retorne a posição
 		return position;
 	}
 }
-
-
-//while (!meetPosition) {
-//	if (aux.getLeftTree().getRoot() != null) {
-//		cout = aux.getRoot().getCountLeftNodes();
-//		System.out.println("cout: " +cout);
-//		aux = aux.getLeftTree();
-//	} 
-//	else if (aux.getRoot().getValue() == element) {
-//		cout = aux.getRoot().getCountLeftNodes() + 1;
-//		System.out.println("cout:: " +cout);
-//		position = cout;
-//		meetPosition = true;
-//	}
-//	else if (aux.getRoot().getValue() < element) {
-//		if (aux.getRigthTree().getRoot() != null) {
-//			cout = aux.getRoot().getCountLeftNodes() + 2;
-//			System.out.println("cout::: " +cout);
-//			aux = aux.getRigthTree();
-//		}
-//	}
-//}
 
 
 
