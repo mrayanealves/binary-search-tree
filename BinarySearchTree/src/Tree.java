@@ -345,10 +345,8 @@ public class Tree {
 					}
 					// Se o valor da raíz for igual ao elemento
 					else if (aux.getRoot().getValue() == element) {
-						// O contador será o valor dos filhos à esquerda do nó somado com 1 dele mesmo 
-						cout = aux.getRoot().getCountLeftNodes() + 1;
-						// Posição será esse contador
-						position = cout;
+						// Posição será o valor dos filhos à esquerda do nó somado com 1 dele mesmo 
+						position = aux.getRoot().getCountLeftNodes() + 1;;
 						// Encontrou a posição
 						meetPosition = true;
 					}
@@ -378,8 +376,7 @@ public class Tree {
 			} 
 			// Se o valor da raíz for igual ao elemento, a posição será a quatidade de filhos à esquerda mais 1 dela mesma
 			else if (aux.getRoot().getValue() == element) {
-				cout = aux.getRoot().getCountLeftNodes() + 1;
-				position = cout;
+				position = root;
 			}
 			
 			// Se o valor da raíz for menor que o elemento, então o elemento está à direita da raíz
