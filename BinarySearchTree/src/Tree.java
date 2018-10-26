@@ -448,7 +448,7 @@ public class Tree {
 	 * @return tree.getRoot().getValue() Integer que representa o valor da raíz
 	 * @author Maria Rayane Alves
 	 */
-	private Integer visit(Tree tree) {
+	public Integer visit(Tree tree) {
 		return tree.getRoot().getValue();
 	}
 
@@ -459,7 +459,7 @@ public class Tree {
 	 *         nível da árvore
 	 * @author Maria Rayane Alves
 	 */
-	private ArrayList<Tree> level_order() {
+	public ArrayList<Tree> levelOrder() {
 		ArrayList<Tree> result = new ArrayList<Tree>();
 		Tree aux = this;
 		Queue queue = new Queue();
@@ -493,7 +493,7 @@ public class Tree {
 	 */
 	public String toString() {
 		String result = "";
-		ArrayList<Tree> trees = level_order();
+		ArrayList<Tree> trees = levelOrder();
 		Iterator<Tree> it = trees.iterator();
 
 		// Enquanto houver próximo, adicione ao resultado a visita à árvore
@@ -562,5 +562,76 @@ public class Tree {
 	public boolean isPerfect() { 
 	   Integer depth = findADepth(); 
 	   return isPerfectRec(this, depth, 0); 
+	}
+	
+	private Integer getLevelUtil(Tree tree, Integer value, int level) {
+		Integer downlevel = 0;
+		if (search(value)) {
+			if (tree.getRoot().getValue() == null) 
+		        return 0; 
+		  
+		    if (tree.getRoot().getValue()== value) 
+		        return level; 
+		  
+		    if (tree.getLeftTree().getRoot() != null) {
+		    	downlevel = getLevelUtil(tree.getLeftTree(), value, level+1); 
+			    if (downlevel != 0) 
+			        return downlevel; 
+			}
+		    
+		    if (tree.getRigthTree().getRoot() != null) {
+		    	downlevel = getLevelUtil(tree.getRigthTree(), value, level+1);
+			}
+		    
+		}
+	    return downlevel; 
+	} 
+	  
+	/* Returns level of given data value */
+	private Integer getLevel(Integer value)  { 
+	    return getLevelUtil(this,value,1); 
+	} 
+	
+	private ArrayList<Integer> getNodesOfLastLevels(){
+		ArrayList<Tree> levelsOrderTree = this.levelOrder();
+		ArrayList<Integer> results = new ArrayList<Integer>();
+		
+		Integer valueLastNode = levelsOrderTree.get(levelsOrderTree.size() - 1).getRoot().getValue();
+		Integer lastNodeLevel = getLevel(valueLastNode);
+		
+		for (int i = levelsOrderTree.size()-1; i >= 0; i--) {
+			Integer levelValue = getLevel(levelsOrderTree.get(i).getRoot().getValue());
+			if (levelValue == lastNodeLevel) {
+				results.add(levelsOrderTree.get(i).getRoot().getValue());
+			}
+		}
+		return results;
+	}
+	
+	private Tree removeNodesOfLastLevels() {
+		Tree aux = new Tree(null, null, null);
+		ArrayList<Tree> thisTree = levelOrder();
+		Iterator<Tree> it = thisTree.iterator();
+		while (it.hasNext()) {
+			Tree tree = (Tree) it.next();
+			aux.insert(tree.getRoot().getValue());
+		}	
+		ArrayList<Integer> nodesOfLastLevels = getNodesOfLastLevels();
+		Iterator<Integer> it2 = nodesOfLastLevels.iterator();
+		while (it2.hasNext()) {
+			Integer value = (Integer) it2.next();
+			aux.remove(value);
+		}	
+		return aux;
+	}
+	
+	public boolean isComplete() {
+		boolean isComplete = false;
+		Tree aux = removeNodesOfLastLevels();
+		if (aux.isPerfect()) {
+			isComplete = true;
+		}
+		
+		return isComplete;
 	}
 }
