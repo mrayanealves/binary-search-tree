@@ -455,15 +455,17 @@ public class Tree {
 		return result;
 	}
 	
-//	public void test() {
-//		ArrayList<Tree> trees = level_order();
-//		Iterator<Tree> it = trees.iterator();
-//		
-//		while (it.hasNext()) {
-//			Tree tree = (Tree) it.next();
-//			System.out.print(visit(tree) + " ");
-//		}
-//	}
+	public String toString() {
+		String result = ""; 
+		ArrayList<Tree> trees = level_order();
+		Iterator<Tree> it = trees.iterator();
+		
+		while (it.hasNext()) {
+			Tree tree = (Tree) it.next();
+			result += visit(tree) + " ";
+		}
+		return result;
+	}
 }
 
 
