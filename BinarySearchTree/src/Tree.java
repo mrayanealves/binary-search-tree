@@ -421,10 +421,21 @@ public class Tree {
 		return position;
 	}
 	
+	/**
+	 * Retorna o valor da raíz de uma árvore
+	 * @param tree Tree árvore a ter o valor da raíz retornado
+	 * @return tree.getRoot().getValue() Integer que representa o valor da raíz
+	 * @author Maria Rayane Alves
+	 */
 	private Integer visit(Tree tree) {
 		return tree.getRoot().getValue();
 	}
 	
+	/**
+	 * Retorna um array que representa a árvore em percurso de nível
+	 * @return result ArrayList<Tree> que representa o resultado do percurso de nível da árvore
+	 * @author Maria Rayane Alves
+	 */
 	private ArrayList<Tree> level_order() {
 		ArrayList<Tree> result = new ArrayList<Tree>();
 		Tree aux = this;
