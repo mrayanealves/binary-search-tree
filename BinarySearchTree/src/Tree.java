@@ -472,10 +472,12 @@ public class Tree {
 		ArrayList<Tree> trees = level_order();
 		Iterator<Tree> it = trees.iterator();
 		
+		// Enquanto houver próximo, adicione ao resultado a visita à árvore
 		while (it.hasNext()) {
 			Tree tree = (Tree) it.next();
 			result += visit(tree) + " ";
 		}
+		// Retorne o resultado
 		return result;
 	}
 }
