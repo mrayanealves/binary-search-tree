@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Tree {
 	private Node root;
@@ -418,6 +420,39 @@ public class Tree {
 		// Retorne a posição
 		return position;
 	}
+	
+	private Integer visit(Tree tree) {
+		return tree.getRoot().getValue();
+	}
+	
+	private ArrayList<Tree> level_order() {
+		ArrayList<Tree> result = new ArrayList<Tree>();
+		Tree aux = this;
+		Queue queue = new Queue();
+		queue.enqueue(aux);
+		
+		while (!queue.isEmpty()) {
+			aux = queue.dequeue();
+			result.add(aux);
+			if (aux.getLeftTree().getRoot() != null) {
+				queue.enqueue(aux.getLeftTree());
+			}
+			if (aux.getRigthTree().getRoot() != null) {
+				queue.enqueue(aux.getRigthTree());
+			}
+		}
+		return result;
+	}
+	
+//	public void test() {
+//		ArrayList<Tree> trees = level_order();
+//		Iterator<Tree> it = trees.iterator();
+//		
+//		while (it.hasNext()) {
+//			Tree tree = (Tree) it.next();
+//			System.out.print(visit(tree) + " ");
+//		}
+//	}
 }
 
 
