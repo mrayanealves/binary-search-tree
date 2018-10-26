@@ -506,12 +506,12 @@ public class Tree {
 	}
 
 	/**
-	 * Retorna se a árvore é completa ou não
+	 * Retorna se a árvore é full ou não
 	 * 
-	 * @return boolean True se for completa e False se não fot
+	 * @return boolean True se for full e False se não for
 	 * @author Maria Rayane Alves 
 	 */
-	public boolean isComplete(Tree tree) {
+	public boolean isFull(Tree tree) {
 		if (tree.getRoot() == null) {
 			return true;
 		}
@@ -521,7 +521,7 @@ public class Tree {
 		}
 		
 		if ((tree.getLeftTree().getRoot() != null) && (tree.getRigthTree().getRoot() != null)) {
-			return isComplete(tree.getLeftTree()) && isComplete(tree.getRigthTree());
+			return isFull(tree.getLeftTree()) && isFull(tree.getRigthTree());
 		}
 		return false;
 	}
