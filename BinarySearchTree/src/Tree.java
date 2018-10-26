@@ -506,24 +506,62 @@ public class Tree {
 	}
 
 	/**
-	 * Retorna se a árvore é full ou não
+	 * Retorna se a árvore é full ou não. Ou seja, se os nó da árvore tem 0 ou 2
+	 * filhos.
 	 * 
 	 * @return boolean True se for full e False se não for
-	 * @author Maria Rayane Alves 
+	 * @author Maria Rayane Alves
 	 */
 	public boolean isFull(Tree tree) {
 		if (tree.getRoot() == null) {
 			return true;
 		}
-		
+
 		if ((tree.getLeftTree().getRoot() == null) && (tree.getRigthTree().getRoot() == null)) {
 			return true;
 		}
-		
+
 		if ((tree.getLeftTree().getRoot() != null) && (tree.getRigthTree().getRoot() != null)) {
 			return isFull(tree.getLeftTree()) && isFull(tree.getRigthTree());
 		}
 		return false;
 	}
+
+	public Integer findADepth() {
+		Tree aux = this;
+		Integer depth = 0;
+		while (aux.getRoot() != null) {
+			depth++;
+			aux = aux.getLeftTree();
+		}
+		return depth;
+	}
+
+	public boolean isPerfectRec(Tree tree, Integer depth, int level) { 
+	    // An empty tree is perfect 
+	    if (tree.getRoot() == null) {
+	    	return true; 
+	    }	  
+	    // If leaf node, then its depth must be same as 
+	    // depth of all other leaves. 
+	    if ((tree.getLeftTree().getRoot() == null) && (tree.getRigthTree().getRoot() == null)) {
+	    	return (depth == level+1);
+	    }
+	    
+	    // If internal node and one child is empty 
+	    if ((tree.getLeftTree().getRoot() == null) || (tree.getRigthTree().getRoot() == null)) {
+	    	return false;
+	    } 
+	  
+	    // Left and right subtrees must be perfect. 
+	    return isPerfectRec(tree.getLeftTree(), depth, level+1) && 
+	           isPerfectRec(tree.getRigthTree(), depth, level+1); 
+	} 
+	  
+	// Wrapper over isPerfectRec() 
+	public boolean isPerfect() { 
+	   Integer depth = findADepth(); 
+	   return isPerfectRec(this, depth, 0); 
+	} 
 
 }
