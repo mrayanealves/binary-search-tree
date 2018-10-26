@@ -562,6 +562,5 @@ public class Tree {
 	public boolean isPerfect() { 
 	   Integer depth = findADepth(); 
 	   return isPerfectRec(this, depth, 0); 
-	} 
-
+	}
 }
