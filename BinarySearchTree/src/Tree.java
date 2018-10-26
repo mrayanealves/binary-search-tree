@@ -440,21 +440,33 @@ public class Tree {
 		ArrayList<Tree> result = new ArrayList<Tree>();
 		Tree aux = this;
 		Queue queue = new Queue();
+		// Adiciona a raiz à fila
 		queue.enqueue(aux);
 		
+		// Enquanto a fila não for vazia
 		while (!queue.isEmpty()) {
+			// Recebe o primeiro da fila
 			aux = queue.dequeue();
+			// Adiciona ao ArrayList
 			result.add(aux);
+			// Se a árvore à esquerda não for nula, adicione à fila
 			if (aux.getLeftTree().getRoot() != null) {
 				queue.enqueue(aux.getLeftTree());
 			}
+			// Se a árvore à direita não for nula, adicione à fila
 			if (aux.getRigthTree().getRoot() != null) {
 				queue.enqueue(aux.getRigthTree());
 			}
 		}
+		// Retorne o ArrayList
 		return result;
 	}
 	
+	/**
+	 * Retorna uma String que representa a árvore em percurso de nível
+	 * @return result String Representa o resultado do percurso de nível da árvore
+	 * @author Maria Rayane Alves
+	 */
 	public String toString() {
 		String result = ""; 
 		ArrayList<Tree> trees = level_order();
