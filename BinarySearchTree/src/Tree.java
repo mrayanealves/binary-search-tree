@@ -448,7 +448,7 @@ public class Tree {
 	 * @return tree.getRoot().getValue() Integer que representa o valor da raíz
 	 * @author Maria Rayane Alves
 	 */
-	private Integer visit(Tree tree) {
+	public Integer visit(Tree tree) {
 		return tree.getRoot().getValue();
 	}
 
@@ -459,7 +459,7 @@ public class Tree {
 	 *         nível da árvore
 	 * @author Maria Rayane Alves
 	 */
-	private ArrayList<Tree> level_order() {
+	public ArrayList<Tree> levelOrder() {
 		ArrayList<Tree> result = new ArrayList<Tree>();
 		Tree aux = this;
 		Queue queue = new Queue();
@@ -493,7 +493,7 @@ public class Tree {
 	 */
 	public String toString() {
 		String result = "";
-		ArrayList<Tree> trees = level_order();
+		ArrayList<Tree> trees = levelOrder();
 		Iterator<Tree> it = trees.iterator();
 
 		// Enquanto houver próximo, adicione ao resultado a visita à árvore
@@ -504,26 +504,153 @@ public class Tree {
 		// Retorne o resultado
 		return result;
 	}
-
+	
 	/**
-	 * Retorna se a árvore é full ou não
-	 * 
-	 * @return boolean True se for full e False se não for
-	 * @author Maria Rayane Alves 
+	 * Retorna a profundidade da árvore
+	 * @return depth Integer profundidade da árvore
+	 * @author Maria Rayane Alves
 	 */
-	public boolean isFull(Tree tree) {
-		if (tree.getRoot() == null) {
-			return true;
+	public Integer findADepth() {
+		Tree aux = this;
+		Integer depth = 0;
+		while (aux.getRoot() != null) {
+			depth++;
+			aux = aux.getLeftTree();
 		}
-		
-		if ((tree.getLeftTree().getRoot() == null) && (tree.getRigthTree().getRoot() == null)) {
-			return true;
-		}
-		
-		if ((tree.getLeftTree().getRoot() != null) && (tree.getRigthTree().getRoot() != null)) {
-			return isFull(tree.getLeftTree()) && isFull(tree.getRigthTree());
-		}
-		return false;
+		return depth;
 	}
+	
+	/**
+	 * Calcula recursivamente se a árvore é perfeita
+	 * @param tree Tree árvore para se calcular se é perfeita ou não
+	 * @param depth Integer profundidade da árvore
+	 * @param level Integer nível do nó
+	 * @return boolean true se ela for perfeita e false se não
+	 * @author Maria Rayane Alves
+	 */
+	public boolean isPerfectRec(Tree tree, Integer depth, int level) { 
+	    if (tree.getRoot() == null) {
+	    	return true; 
+	    }	  
 
+	    if ((tree.getLeftTree().getRoot() == null) && (tree.getRigthTree().getRoot() == null)) {
+	    	return (depth == level+1);
+	    }
+	    
+	    if ((tree.getLeftTree().getRoot() == null) || (tree.getRigthTree().getRoot() == null)) {
+	    	return false;
+	    } 
+	  
+	    return isPerfectRec(tree.getLeftTree(), depth, level+1) && 
+	           isPerfectRec(tree.getRigthTree(), depth, level+1); 
+	} 
+	  
+	/**
+	 * Calcula se a árvore é perfeita
+	 * @return boolean resultado do método isPerfect
+	 * @author Maria Rayane Alves
+	 */
+	public boolean isPerfect() { 
+	   Integer depth = findADepth(); 
+	   return isPerfectRec(this, depth, 0); 
+	}
+	
+	/**
+	 * Calcula o nível de um determinado valor de nó
+	 * @param tree Tree árvore a qual o nó pertence
+	 * @param value Integer valor do nó
+	 * @param  level Integer nível do nó
+	 * @return downlevel Integer nível do nó
+	 * @author Maria Rayane Alves
+	 */
+	private Integer getLevelUtil(Tree tree, Integer value, Integer level) {
+		Integer downlevel = 0;
+		if (search(value)) {
+			if (tree.getRoot().getValue() == null) 
+		        return 0; 
+		  
+		    if (tree.getRoot().getValue()== value) 
+		        return level; 
+		  
+		    if (tree.getLeftTree().getRoot() != null) {
+		    	downlevel = getLevelUtil(tree.getLeftTree(), value, level+1); 
+			    if (downlevel != 0) 
+			        return downlevel; 
+			}
+		    
+		    if (tree.getRigthTree().getRoot() != null) {
+		    	downlevel = getLevelUtil(tree.getRigthTree(), value, level+1);
+			}
+		    
+		}
+	    return downlevel; 
+	} 
+	  
+	/**
+	 * Calcula o nível de um determinado valor de nó
+	 * @param value Integer valor do nó a ser calculado
+	 * @return getLevelUtil
+	 * @author Maria Rayane Alves
+	 */
+	private Integer getLevel(Integer value)  { 
+	    return getLevelUtil(this,value,1); 
+	} 
+	
+	/**
+	 * Retorna os nós do ultimo nível  
+	 * @return results ArrayList<Integer> array de inteiros que contém os valores dos nós do último nível
+	 * @author Maria Rayane Alves
+	 */
+	private ArrayList<Integer> getNodesOfLastLevel(){
+		ArrayList<Tree> levelsOrderTree = this.levelOrder();
+		ArrayList<Integer> results = new ArrayList<Integer>();
+		
+		Integer valueLastNode = levelsOrderTree.get(levelsOrderTree.size() - 1).getRoot().getValue();
+		Integer lastNodeLevel = getLevel(valueLastNode);
+		
+		for (int i = levelsOrderTree.size()-1; i >= 0; i--) {
+			Integer levelValue = getLevel(levelsOrderTree.get(i).getRoot().getValue());
+			if (levelValue == lastNodeLevel) {
+				results.add(levelsOrderTree.get(i).getRoot().getValue());
+			}
+		}
+		return results;
+	}
+	
+	/**
+	 * Retorna uma nova árvore sem os nós do último nível 
+	 * @return aux Tree árvore sem os nós do último nível 
+	 * @author Maria Rayane Alves
+	 */
+	private Tree removeNodesOfLastLevels() {
+		Tree aux = new Tree(null, null, null);
+		ArrayList<Tree> thisTree = levelOrder();
+		Iterator<Tree> it = thisTree.iterator();
+		while (it.hasNext()) {
+			Tree tree = (Tree) it.next();
+			aux.insert(tree.getRoot().getValue());
+		}	
+		ArrayList<Integer> nodesOfLastLevels = getNodesOfLastLevel();
+		Iterator<Integer> it2 = nodesOfLastLevels.iterator();
+		while (it2.hasNext()) {
+			Integer value = (Integer) it2.next();
+			aux.remove(value);
+		}	
+		return aux;
+	}
+	
+	/**
+	 * Verifica se a árvore é completa ou não
+	 * @return isComplete boolean true se for completa ou false se não for
+	 * @author Maria Rayane Alves
+	 */
+	public boolean isComplete() {
+		boolean isComplete = false;
+		Tree aux = removeNodesOfLastLevels();
+		if (aux.isPerfect()) {
+			isComplete = true;
+		}
+		
+		return isComplete;
+	}
 }
