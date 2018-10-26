@@ -33,9 +33,6 @@ public class Main {
 			System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
 		}
 		
-		Integer p = tree.position(30);
-		System.out.println(p);
-		
 		// Execução da Ações
 		try {
 			FileReader file = new FileReader(file_commands);
