@@ -4,7 +4,7 @@
 
 O projeto tem como objetivo a implementação de uma árvore binária de busca
 
-### Intruções:
+### Instruções:
 
 Ao preencher o aquivo file_tree.txt:
 1. Em cada linha você deve digitar o número de um elemento da árvore
