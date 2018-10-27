@@ -15,15 +15,15 @@ Ao preencher o aquivo file_commands.txt:
 
 1. Você pode realizar os seguintes comandos:
 
-	a) INSIRA-n
-	b) REMOVA-n
-	c) BUSQUE-n
-	d) CHEIA
-	e) COMPLETA
-	f) MEDIANA
-	g) IMPRIMA
-	h) POSICAO-n
-	i) ENESIMO-p
+	* INSIRA-n
+	* REMOVA-n
+	* BUSQUE
+	* CHEIA 
+	* COMPLETA
+	* MEDIANA
+	* IMPRIMA
+	* POSICAO-n
+	* ENESIMO-p
 
 Sendo n = um elemento qualquer da árvore e p = uma posição qualquer
 
@@ -32,6 +32,7 @@ Sendo n = um elemento qualquer da árvore e p = uma posição qualquer
 3. O comando deve ser escrito com caracteres em maiúsculo e caso informe um valor, deve existir o símbolo "-" entre a instrução e o valor, sem espaços entre nenhum caractere, seguindo o modelo:
 
 	INSTRUCAO-n
+	
 	INSTRUCAO
 
 4. O arquivo em si está preenchido com possíveis comandos para melhor entendimento
