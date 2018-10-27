@@ -1,5 +1,49 @@
 # Binary Search Tree
-Trabalho de EDB2
+
+## Projeto de EDBII
+
+O projeto tem como objetivo a implementação de uma árvore binária de busca
+
+### Intruções:
+
+Ao preencher o aquivo file_tree.txt:
+1. Em cada linha você deve digitar o número de um elemento da árvore
+2. Atenção para não deixar linhas vazias
+3. O arquivo em si está preenchido com elementos de uma possível árvore para melhor entendimento
+
+Ao preencher o aquivo file_commands.txt:
+
+1. Você pode realizar os seguintes comandos:
+
+	a) INSIRA-n
+	b) REMOVA-n
+	c) BUSQUE-n
+	d) CHEIA
+	e) COMPLETA
+	f) MEDIANA
+	g) IMPRIMA
+	h) POSICAO-n
+	i) ENESIMO-p
+
+Sendo n = um elemento qualquer da árvore e p = uma posição qualquer
+
+2. Em cada linha você deve digitar um único comando
+
+3. O comando deve ser escrito com caracteres em maiúsculo e caso informe um valor, deve existir o símbolo "-" entre a instrução e o valor, sem espaços entre nenhum caractere, seguindo o modelo:
+
+	INSTRUCAO-n
+	INSTRUCAO
+
+4. O arquivo em si está preenchido com possíveis comandos para melhor entendimento
+
+### Compilação: 
+
+$ javac Main.java
+
+### Execução:
+
+$ java Main file_tree.txt file_commands.txt
+
 
 ### Referências
 

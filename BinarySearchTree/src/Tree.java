@@ -36,130 +36,170 @@ public class Tree {
 		this.rigthTree = rigthTree;
 	}
 
-	// Inserir Elemento
+    /**
+	 * Insere um elemento na árvore
+	 * 
+	 * @param value Integer que representa o valor do elemento a ser inserido
+	 * @param auxiliar boolean que representa se a função está sendo utilizada em uma árvore auxiliar
+	 * dessa forma remove-se as comunicações
+	 * @author Júlia Ferreira
+	 */
 	public void insert(Integer value) {
+		// Se a raiz não for vazia
 		if (root != null) {
-			// Se for menor
+			// Se o valor for menor que a raiz
 			if (value < root.getValue()) {
-				// Se tiver sub-arvore a esquerda
+				// Se a raiz tiver sub-árvore não vazia a esquerda
 				if (leftTree.getRoot() != null) {
-					// Atualizar contagem de filhos
+					// Atualiza contagem de filhos a , incrementando
 					root.setCountLeftNodes(root.getCountLeftNodes() + 1);
+					// Insere o valor na sub-árvore a esquerda
 					leftTree.insert(value);
-				} else {
-					// Se sub-arvore a esquerda é vazia
+				} 
+				// Se a sub-árvore a esquerda da raiz é vazia
+				else {
 					Node node = new Node(value, 0, 0);
 					Tree leftTree = new Tree(null, null, null);
 					Tree rigthTree = new Tree(null, null, null);
+					// A árvore a esquerda recebe o value como raiz e terá duas sub-árvores vazias
 					this.leftTree = new Tree(node, leftTree, rigthTree);
-					// Atualizar contagem de filhos
+					// Atualiza contagem de filhos a esquerda, incrementando
 					root.setCountLeftNodes(root.getCountLeftNodes() + 1);
-					System.out.println("O valor " + value + " foi inserido com sucesso!");
+					// System.out.println("O valor " + value + " foi inserido com sucesso!");
 				}
-				// Se for maior
-			} else if (value > root.getValue()) {
-				// Se tiver sub-árvore não vazia a direita
+			} 
+			// Se o valor for maior que a raiz
+			else if (value > root.getValue()) {
+				// Se a raiz tiver sub-árvore não vazia a direita
 				if (rigthTree.getRoot() != null) {
-					// Atualizar contagem de filhos
+					// Atualiza contagem de filhos, incrementando
 					root.setCountRigthNodes(root.getCountRigthNodes() + 1);
+					// Insere o valor na sub-árvore a direita
 					rigthTree.insert(value);
-				} else {
-					// Se a sub-árvore a direita é vazia
+				} 
+				// Se a sub-árvore a direita da raiz é vazia 
+				else {
 					Node node = new Node(value, 0, 0);
 					Tree leftTree = new Tree(null, null, null);
 					Tree rigthTree = new Tree(null, null, null);
+					// A árvore a direita recebe o value como raiz e terá duas sub-árvores vazias
 					this.rigthTree = new Tree(node, leftTree, rigthTree);
-					// Atualizar contagem de filhos
+					// Atualizar contagem de filhos, incrementando
 					root.setCountRigthNodes(root.getCountRigthNodes() + 1);
-					System.out.println("O valor " + value + " foi inserido com sucesso!");
+					//System.out.println("O valor " + value + " foi inserido com sucesso!"
 				}
 			}
-			// Impedir inserção de valores duplicados
+			// Impede inserção de valores duplicados
 			else if (value == root.getValue()) {
 				System.out.println("O valor " + value + " já existe na árvore e não pode ser inserido novamente!");
 			}
-		} else { // Caso a árvore seja vazia
+		} 
+		// Caso a árvore seja vazia
+		else { 
+			// Cria uma raiz com de valor = value e adiciona a ela duas sub-árvores vazias
 			this.root = new Node(value, 0, 0);
 			this.leftTree = new Tree(null, null, null);
 			this.rigthTree = new Tree(null, null, null);
-			System.out.println("O valor " + value + " foi inserido com sucesso e é a raiz!");
+			// System.out.println("O valor " + value + " foi inserido com sucesso e é a raiz!");
 		}
 	}
 
-	// Remover Elemento
+	/**
+	 * Remove um elemento da árvore
+	 * 
+	 * @param value Integer que representa o valor do elemento a ser removido
+	 * @return remove boolean que indica se a remoção foi realizada ou não
+	 * @author Júlia Ferreira
+	 */
 	public boolean remove(Integer value) {
+		// Se a raiz não for vazia
 		if (root != null) {
+			// Se as sub-árvores não forem nulas
 			if (leftTree != null && rigthTree != null) {
-				// Se for menor
+				// Se o valor for menor do que a raiz
 				if (value < root.getValue()) {
+					// Se a sub-árvore a esquerda não for vazia
 					if (leftTree.getRoot() != null) {
-						if (leftTree.getRoot().getValue() == value) {
-							boolean remove = leftTree.remove(value);
-							return remove;
+						// Remove value da sub-árvore a esquerda
+						boolean remove = leftTree.remove(value);
+						// Se foi possível remover
+						if (remove) {
+							// Atualiza contagem de filhos a esquerda decrementando
+							Integer new_count = root.getCountLeftNodes() - 1;
+							root.setCountLeftNodes(new_count);
 						}
-
-						else {
-							boolean remove = leftTree.remove(value);
-							if (remove) {
-								Integer new_count = root.getCountLeftNodes() - 1;
-								root.setCountLeftNodes(new_count);
-							}
-							return remove;
-						}
-					} else {
+						return remove;
+					} 
+					// Se a sub-árvore a esquerda for vazia
+					else {
+						// Estamos em uma folha e não encontramos o elemento para remover
 						return false;
 					}
 				}
-				// Se for Maior
+				// Se o valor for maior do que a raiz
 				else if (value > root.getValue()) {
+					// Se a sub-árvore a direita não for vazia
 					if (rigthTree.getRoot() != null) {
-						// Vejamos se o filho é o valor
-						if (rigthTree.getRoot().getValue() == value) {
-							boolean remove = rigthTree.remove(value);
-							return remove;
-						} else {
-							boolean remove = rigthTree.remove(value);
-							if (remove) {
-								Integer new_count = root.getCountRigthNodes() - 1;
-								root.setCountRigthNodes(new_count);
-							}
-							return remove;
+						// Remove value da sub-árvore a direita
+						boolean remove = rigthTree.remove(value);
+						// Se foi possível remover
+						if (remove) {
+							// Atualiza a contagem de filhos a direita decrementando
+							Integer new_count = root.getCountRigthNodes() - 1;
+							root.setCountRigthNodes(new_count);
 						}
-					} else {
+						return remove;
+					} 
+					// Se a sub-árvore for vazia
+					else {
+						// Estamos em uma folha e não encontramos o elemento para remover
 						return false;
-					}
-				} else if (value == root.getValue()) {
-					// Se nao tem filhos
+					}					
+				} 
+				// Se o valor a ser removido for igual a raiz
+				else if (value == root.getValue()) {
+					// Se a raiz não tem filhos, então é folha
 					if (rigthTree.getRoot() == null && leftTree.getRoot() == null) {
+						// Torna seus campos nulos
 						root = null;
 						rigthTree = null;
 						leftTree = null;
+						// Retorna que foi possível remover
 						return true;
 					}
-					// Se tem um filho e é o da direita
+					// Se a raiz possui sub-árvore vazia a esquerda
 					else if (leftTree.getRoot() == null) {
+						// A raiz da sub-árvore a direita passa a ser a raiz da árvore
 						root = rigthTree.getRoot();
+						// As sub-árvores do filho da direita passam a ser as sub-árvores da raiz
 						rigthTree = rigthTree.getRigthTree();
 						leftTree = rigthTree.getLeftTree();
+						// Retorna que foi possível remover
 						return true;
 					}
-					// Se tem um filho e é o da esquerda
+					// Se a raiz possui sub-árvore vazia a direita
 					else if (rigthTree.getRoot() == null) {
+						// A raiz da sub-árvore a esquerda passa a ser a raiz da árvore
 						root = leftTree.getRoot();
+						// As sub-árvores do filho a esquerda passam a ser  as sub-árvores da raiz
 						rigthTree = leftTree.getRigthTree();
 						leftTree = leftTree.getLeftTree();
+						// Retorna que foi possível remover
 						return true;
 					}
-					// Se tem dois filhos
+					// Se tem duas sub-árvores não vazias
 					else {
-						// Vai para a direita
-						// Pega o mais a esquerda
+						// Acessa a sub-árvore a direita
 						Tree auxiliar = rigthTree;
+						// Enquanto a sub-árvore a esquerda não for vazia
 						while (auxiliar.getLeftTree() != null && auxiliar.getLeftTree().getRoot() != null) {
+							// Acessa o elemento mais a esquerda
 							auxiliar = auxiliar.getLeftTree();
 						}
+						// O novo valor da raiz será o elemento da direita ou o mais a esquerda da sub-árvore a direita
 						Integer new_value = auxiliar.getRoot().getValue();
 						root.setValue(new_value);
+						// Removemos o valor que agora está na raiz
 						boolean remove = rigthTree.remove(new_value);
 						return remove;
 					}
@@ -169,19 +209,54 @@ public class Tree {
 		return false;
 	}
 
-	// Buscar Elemento
+	/**
+	 * Busca um elemento na árvore
+	 * 
+	 * @param value Integer que representa o valor do elemento a ser removido
+	 * @return found boolean que indica se o elemento foi encontrado ou não
+	 * @author Júlia Ferreira
+	 */
 	public boolean search(Integer value) {
 		boolean found = false;
+		// Enquanto a raiz não for vazia e o elemento não tiver sido encontrado
 		if (root != null && found == false) {
+			// Se a raiz for o valor procurado
 			if (root.getValue() == value) {
+				// Retorna que está na árvore
 				found = true;
-			} else if (value < root.getValue()) {
+			} 
+			// Se o valor for menor que a raiz
+			else if (value < root.getValue()) {
+				// Procura na sub-árvore a esquerda
 				found = leftTree.search(value);
-			} else {
+			} 
+			// Se o valor for maior
+			else if (value > root.getValue()) {
+				// Procura na sub-árvore a direita
 				found = rigthTree.search(value);
 			}
 		}
 		return found;
+	}
+
+	/**
+	 * Busca o elemento mediano da árvore
+	 * Se a ABB possui um número par de elementos, 
+	 * retorne o menor dentre os dois elementos medianos
+	 * @return element Integer que representa o valor mediano
+	 * @author Júlia Ferreira
+	 */
+	Integer median() {
+		Integer element = null;
+		// Soma os filhos a direita com os filhos a esquerda da raiz para obter o 
+		// total de posições que existem
+		Integer total_nodes = root.getCountLeftNodes() + root.getCountRigthNodes()+1;
+		// Se a árvore não for vazia
+		if (root!= null) {
+			// o elemento mediano será o elemento que ocupa a posicao central do percurso em ordem
+			element = this.nthElement((1+total_nodes)/2);
+		}
+		return element;
 	}
 
 	/**
