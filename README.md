@@ -39,7 +39,7 @@ Sendo n = um elemento qualquer da árvore e p = uma posição qualquer
 
 ### Compilação: 
 
-$ javac Node.java Tree.java Main.java
+$ javac Queue.java Node.java Tree.java Main.java
 
 ### Execução:
 
