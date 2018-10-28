@@ -142,7 +142,7 @@ public class Main {
 						}
 						// Se não for
 						else {
-							System.out.println("Percurso em nível: " + result+ " contagem filhos:" + tree.getRoot().getCountLeftNodes() + "  " + tree.getRoot().getCountRigthNodes());
+							System.out.println("Percurso em nível: " + result+ " contagem filhos da raíz a esquerda:" + tree.getRoot().getCountLeftNodes() + " a direita" + tree.getRoot().getCountRigthNodes());
 						}
 					} break;
 					// Caso o comando seja "POSICAO"
