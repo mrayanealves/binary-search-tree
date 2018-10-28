@@ -4,7 +4,7 @@ import java.util.Iterator;
 /**
  * Classe que representa uma árvore binária de busca
  *
- * @author MAria Rayane Alves
+ * @author Maria Rayane Alves
  * @author Julia Ferreira
  * @version 2018.10.20
  */ 
@@ -60,8 +60,6 @@ public class Tree {
 	 * Insere um elemento na árvore
 	 * 
 	 * @param value Integer que representa o valor do elemento a ser inserido
-	 * @param auxiliar boolean que representa se a função está sendo utilizada em uma árvore auxiliar
-	 * dessa forma remove-se as comunicações
 	 * @author Júlia Ferreira
 	 */
 	public void insert(Integer value) {
