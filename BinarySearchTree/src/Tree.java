@@ -264,7 +264,7 @@ public class Tree {
 	 * @return element Integer que representa o valor mediano
 	 * @author Júlia Ferreira
 	 */
-	Integer median() {
+	public Integer median() {
 		Integer element = null;
 		// Soma os filhos a direita com os filhos a esquerda da raiz para obter o 
 		// total de posições que existem
@@ -284,7 +284,7 @@ public class Tree {
 	 * @return meet Integer que representa o número encontado na posição n
 	 * @author Maria Rayane Alves
 	 */
-	Integer nthElement(Integer n) {
+	public Integer nthElement(Integer n) {
 		boolean isMeet = false;
 		Integer meet = 0;
 		Tree aux = this;
@@ -541,7 +541,7 @@ public class Tree {
 	 * @return tree.getRoot().getValue() Integer que representa o valor da raíz
 	 * @author Maria Rayane Alves
 	 */
-	public Integer visit(Tree tree) {
+	private Integer visit(Tree tree) {
 		return tree.getRoot().getValue();
 	}
 
@@ -552,7 +552,7 @@ public class Tree {
 	 *         nível da árvore
 	 * @author Maria Rayane Alves
 	 */
-	public ArrayList<Tree> levelOrder() {
+	private ArrayList<Tree> levelOrder() {
 		ArrayList<Tree> result = new ArrayList<Tree>();
 		Tree aux = this;
 		Queue queue = new Queue();
@@ -604,7 +604,7 @@ public class Tree {
 	 * @return depth Integer profundidade da árvore
 	 * @author Maria Rayane Alves
 	 */
-	public Integer findADepth() {
+	private Integer findADepth() {
 		Tree aux = this;
 		Integer depth = 0;
 		while (aux.getRoot() != null) {
@@ -623,7 +623,7 @@ public class Tree {
 	 * @return boolean true se ela for perfeita e false se não
 	 * @author Maria Rayane Alves
 	 */
-	public boolean isPerfectRec(Tree tree, Integer depth, int level) { 
+	private boolean isPerfectRec(Tree tree, Integer depth, int level) { 
 	    if (tree.getRoot() == null) {
 	    	return true; 
 	    }	  
