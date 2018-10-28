@@ -62,17 +62,21 @@ public class Tree {
 	 * @param value Integer que representa o valor do elemento a ser inserido
 	 * @author Júlia Ferreira
 	 */
-	public void insert(Integer value) {
+	public boolean insert(Integer value) {
 		// Se a raiz não for vazia
 		if (root != null) {
 			// Se o valor for menor que a raiz
 			if (value < root.getValue()) {
 				// Se a raiz tiver sub-árvore não vazia a esquerda
 				if (leftTree.getRoot() != null) {
-					// Atualiza contagem de filhos a , incrementando
-					root.setCountLeftNodes(root.getCountLeftNodes() + 1);
 					// Insere o valor na sub-árvore a esquerda
-					leftTree.insert(value);
+					boolean insert = leftTree.insert(value);
+                    // Se foi possível inserir
+                    if(insert){
+                        // Atualiza contagem de filhos a , incrementando
+					    root.setCountLeftNodes(root.getCountLeftNodes() + 1);
+                    } 
+                    return insert;
 				} 
 				// Se a sub-árvore a esquerda da raiz é vazia
 				else {
@@ -83,17 +87,22 @@ public class Tree {
 					this.leftTree = new Tree(node, leftTree, rigthTree);
 					// Atualiza contagem de filhos a esquerda, incrementando
 					root.setCountLeftNodes(root.getCountLeftNodes() + 1);
-					// System.out.println("O valor " + value + " foi inserido com sucesso!");
+					// Foi possível remover
+                    return true;
 				}
 			} 
 			// Se o valor for maior que a raiz
 			else if (value > root.getValue()) {
 				// Se a raiz tiver sub-árvore não vazia a direita
 				if (rigthTree.getRoot() != null) {
-					// Atualiza contagem de filhos, incrementando
-					root.setCountRigthNodes(root.getCountRigthNodes() + 1);
 					// Insere o valor na sub-árvore a direita
-					rigthTree.insert(value);
+					boolean insert = rigthTree.insert(value);
+                    // Se foi possível inserir
+                    if (insert) {
+                        // Atualiza contagem de filhos, incrementando
+					    root.setCountRigthNodes(root.getCountRigthNodes() + 1);
+                    }
+                    return insert;
 				} 
 				// Se a sub-árvore a direita da raiz é vazia 
 				else {
@@ -104,12 +113,15 @@ public class Tree {
 					this.rigthTree = new Tree(node, leftTree, rigthTree);
 					// Atualizar contagem de filhos, incrementando
 					root.setCountRigthNodes(root.getCountRigthNodes() + 1);
-					//System.out.println("O valor " + value + " foi inserido com sucesso!"
+                    // Foi possível inserir
+                    return true;
 				}
 			}
 			// Impede inserção de valores duplicados
 			else if (value == root.getValue()) {
 				System.out.println("O valor " + value + " já existe na árvore e não pode ser inserido novamente!");
+                // Não foi possível remover o valor                
+                return false;
 			}
 		} 
 		// Caso a árvore seja vazia
@@ -118,8 +130,10 @@ public class Tree {
 			this.root = new Node(value, 0, 0);
 			this.leftTree = new Tree(null, null, null);
 			this.rigthTree = new Tree(null, null, null);
-			// System.out.println("O valor " + value + " foi inserido com sucesso e é a raiz!");
+            // Foi possível inserir
+            return true;
 		}
+      return false;
 	}
 
 	/**
@@ -217,6 +231,8 @@ public class Tree {
 						// O novo valor da raiz será o elemento da direita ou o mais a esquerda da sub-árvore a direita
 						Integer new_value = auxiliar.getRoot().getValue();
 						root.setValue(new_value);
+                        // Atualizamos o numero de filhos decrementando
+                        root.setCountRigthNodes(root.getCountRigthNodes()-1);
 						// Removemos o valor que agora está na raiz
 						boolean remove = rigthTree.remove(new_value);
 						return remove;
@@ -566,11 +582,11 @@ public class Tree {
 			// Adiciona ao ArrayList
 			result.add(aux);
 			// Se a árvore à esquerda não for nula, adicione à fila
-			if (aux.getLeftTree().getRoot() != null) {
+			if (aux.getLeftTree()!=null && aux.getLeftTree().getRoot() != null) {
 				queue.enqueue(aux.getLeftTree());
 			}
 			// Se a árvore à direita não for nula, adicione à fila
-			if (aux.getRigthTree().getRoot() != null) {
+			if (aux.getRigthTree()!=null && aux.getRigthTree().getRoot() != null) {
 				queue.enqueue(aux.getRigthTree());
 			}
 		}
@@ -728,7 +744,7 @@ public class Tree {
 		Iterator<Tree> it = thisTree.iterator();
 		while (it.hasNext()) {
 			Tree tree = (Tree) it.next();
-			aux.insert(tree.getRoot().getValue());
+			boolean insert = aux.insert(tree.getRoot().getValue());
 		}	
 		ArrayList<Integer> nodesOfLastLevels = getNodesOfLastLevel();
 		Iterator<Integer> it2 = nodesOfLastLevels.iterator();

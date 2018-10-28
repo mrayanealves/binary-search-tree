@@ -55,7 +55,11 @@ public class Main {
 					case "INSIRA": {
 						Integer value = Integer.valueOf(comando[1]);
 						// Insere o elemento com o valor passado na árvore
-						tree.insert(value);
+						boolean insert = tree.insert(value);
+                        // Se o elemento foi inserido
+                        if(insert) {
+                            System.out.println("O valor " + value + " foi inserido com sucesso!");
+                        }
 					} break;
 					// Caso o comando seja "REMOVA"
 					case "REMOVA": {
@@ -82,7 +86,7 @@ public class Main {
 				    	}
 				    	// Caso o elemento não se encontre na árvore	
 				    	else {
-				    			System.out.println("O elemento de valor " + value + ", pois ele não se encontra na árvore!");
+				    			System.out.println("O elemento de valor " + value + " não se encontra na árvore!");
 				    	}
 					} break;
 					// Caso o comando seja "CHEIA"
@@ -138,7 +142,7 @@ public class Main {
 						}
 						// Se não for
 						else {
-							System.out.println("Percurso em nível: " + result);
+							System.out.println("Percurso em nível: " + result+ " contagem filhos:" + tree.getRoot().getCountLeftNodes() + "  " + tree.getRoot().getCountRigthNodes());
 						}
 					} break;
 					// Caso o comando seja "POSICAO"
@@ -162,7 +166,7 @@ public class Main {
 						// Busca o valor do elemento na posição passada
 						Integer value = tree.nthElement(position);
 						// Se não foi possível encontrar
-						if(value == 0) {
+						if(value == -1) {
 							System.out.println("Não foi possível encontrar o elemento nesta posição!");
 						}
 						// Se foi possível
