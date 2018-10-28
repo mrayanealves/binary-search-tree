@@ -2,6 +2,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * A classe que contém a função estática main
+ *
+ * a Main permite a leitura dos arquivos e execução dos comandos
+ * 
+ * @author Julia Ferreira
+ * @version 2018.10.20
+ */ 
 public class Main {
 	public static void main(String[] args) {
 		// Inicialização dos Elementos

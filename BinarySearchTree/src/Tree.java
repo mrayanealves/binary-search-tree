@@ -1,17 +1,37 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Classe que representa uma árvore binária de busca
+ *
+ * @author MAria Rayane Alves
+ * @author Julia Ferreira
+ * @version 2018.10.20
+ */ 
 public class Tree {
+    // Raiz da árvore
 	private Node root;
+    // Sub-árvore a esquerda
 	private Tree leftTree;
+    // Sub-árvore a direita
 	private Tree rigthTree;
 
+    /**
+     * Construtor
+     *
+     * @param root Node que indica a raiz da árvore
+     * @param leftTree Tree que indica a sub-árvore a esquerda
+     * @param rigthTree Tree que indica a sub-árvore a direita
+     */ 
 	public Tree(Node root, Tree leftTree, Tree rigthTree) {
 		this.root = root;
 		this.leftTree = leftTree;
 		this.rigthTree = rigthTree;
 	}
 
+    /**
+     * Getters e Setters
+     */ 
 	public Node getRoot() {
 		return root;
 	}
@@ -582,6 +602,7 @@ public class Tree {
 	
 	/**
 	 * Retorna a profundidade da árvore
+     *
 	 * @return depth Integer profundidade da árvore
 	 * @author Maria Rayane Alves
 	 */
@@ -597,6 +618,7 @@ public class Tree {
 	
 	/**
 	 * Calcula recursivamente se a árvore é perfeita
+     *
 	 * @param tree Tree árvore para se calcular se é perfeita ou não
 	 * @param depth Integer profundidade da árvore
 	 * @param level Integer nível do nó
@@ -622,6 +644,7 @@ public class Tree {
 	  
 	/**
 	 * Calcula se a árvore é perfeita
+     *
 	 * @return boolean resultado do método isPerfect
 	 * @author Maria Rayane Alves
 	 */
@@ -632,6 +655,7 @@ public class Tree {
 	
 	/**
 	 * Calcula o nível de um determinado valor de nó
+     *
 	 * @param tree Tree árvore a qual o nó pertence
 	 * @param value Integer valor do nó
 	 * @param  level Integer nível do nó
@@ -663,6 +687,7 @@ public class Tree {
 	  
 	/**
 	 * Calcula o nível de um determinado valor de nó
+     *
 	 * @param value Integer valor do nó a ser calculado
 	 * @return getLevelUtil
 	 * @author Maria Rayane Alves
@@ -673,6 +698,7 @@ public class Tree {
 	
 	/**
 	 * Retorna os nós do ultimo nível  
+     *
 	 * @return results ArrayList<Integer> array de inteiros que contém os valores dos nós do último nível
 	 * @author Maria Rayane Alves
 	 */
@@ -694,6 +720,7 @@ public class Tree {
 	
 	/**
 	 * Retorna uma nova árvore sem os nós do último nível 
+     *
 	 * @return aux Tree árvore sem os nós do último nível 
 	 * @author Maria Rayane Alves
 	 */
@@ -716,6 +743,7 @@ public class Tree {
 	
 	/**
 	 * Verifica se a árvore é completa ou não
+     *
 	 * @return isComplete boolean true se for completa ou false se não for
 	 * @author Maria Rayane Alves
 	 */
